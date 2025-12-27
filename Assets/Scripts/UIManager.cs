@@ -73,6 +73,7 @@ public class UIManager : MonoBehaviour
         // Logic for Harvest Button
         if (HarvestButton == null) HarvestButton = GameFinder.FindComponent<Button>("HarvestButton");
         if (HarvestButton == null) CreateHarvestButton();
+    }
 
     private void OnNextDayClicked()
     {
