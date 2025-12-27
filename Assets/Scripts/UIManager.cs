@@ -155,7 +155,7 @@ public class UIManager : MonoBehaviour
         textObj.transform.SetParent(btnObj.transform, false);
         Text txt = textObj.AddComponent<Text>();
         txt.text = "HASAT ET";
-        txt.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         txt.color = Color.white;
         txt.alignment = TextAnchor.MiddleCenter;
         
