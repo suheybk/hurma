@@ -204,7 +204,7 @@ public class UIManager : MonoBehaviour
         rt.anchorMin = new Vector2(1, 1);
         rt.anchorMax = new Vector2(1, 1);
         rt.pivot = new Vector2(1, 1);
-        rt.anchoredPosition = new Vector2(-20, -60); // Below date/moon
+        rt.anchoredPosition = new Vector2(-20, -150); // Moved down significantly to avoid overlapping Next Day button
         rt.sizeDelta = new Vector2(300, 40);
         
         UpdateInventoryDisplay();
