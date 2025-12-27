@@ -69,6 +69,7 @@ public class UIManager : MonoBehaviour
              // Fallback: Try finding by tag or just type if unique
              InventoryText = GameFinder.FindComponent<Text>("RizqText");
         }
+        if (InventoryText == null) CreateInventoryText();
 
         // Logic for Harvest Button
         if (HarvestButton == null) HarvestButton = GameFinder.FindComponent<Button>("HarvestButton");
@@ -183,6 +184,31 @@ public class UIManager : MonoBehaviour
     // Adding field first, then using it
     [Header("Stewardship")]
     public Text InventoryText; // User needs to link this, or we find it.
+
+    private void CreateInventoryText()
+    {
+        Canvas canvas = FindFirstObjectByType<Canvas>();
+        if (canvas == null) return;
+
+        GameObject textObj = new GameObject("InventoryText");
+        textObj.transform.SetParent(canvas.transform, false);
+        
+        InventoryText = textObj.AddComponent<Text>();
+        InventoryText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        InventoryText.fontSize = 24;
+        InventoryText.color = new Color(0.9f, 0.9f, 0.8f); // Off-white
+        InventoryText.alignment = TextAnchor.MiddleRight;
+        
+        // Positioning (Top Right)
+        RectTransform rt = InventoryText.GetComponent<RectTransform>();
+        rt.anchorMin = new Vector2(1, 1);
+        rt.anchorMax = new Vector2(1, 1);
+        rt.pivot = new Vector2(1, 1);
+        rt.anchoredPosition = new Vector2(-20, -60); // Below date/moon
+        rt.sizeDelta = new Vector2(300, 40);
+        
+        UpdateInventoryDisplay();
+    }
 
     public void UpdateInventoryDisplay()
     {
