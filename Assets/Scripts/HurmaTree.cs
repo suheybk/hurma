@@ -46,6 +46,14 @@ public class HurmaTree : MonoBehaviour
 
     private void Start()
     {
+        // FORCE TEST SETTINGS (Overrides Inspector)
+        DaysToSapling = 1f;
+        DaysToYoung = 2f;
+        DaysToMature = 3f;
+        WaterConsumptionPerDay = 0f; // Disable thirst for testing
+        
+        Debug.Log($"[FAST TEST MODE] Growth Days: {DaysToSapling}/{DaysToYoung}/{DaysToMature}, Water Cons: {WaterConsumptionPerDay}");
+
         if (TimeManager.Instance != null)
         {
             TimeManager.Instance.OnDayChanged += HandleDayChanged;
