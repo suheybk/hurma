@@ -7,7 +7,7 @@ public class TimeManager : MonoBehaviour
 
     [Header("Settings")]
     [Tooltip("Duration of a full day in real-time seconds")]
-    [SerializeField] private float dayDurationInSeconds = 60f;
+    [SerializeField] private float dayDurationInSeconds = 2f;
     
     [Header("State")]
     public int CurrentDay = 1;

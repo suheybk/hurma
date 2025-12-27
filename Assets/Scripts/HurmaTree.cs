@@ -20,10 +20,10 @@ public class HurmaTree : MonoBehaviour
     public int FruitCount = 0;
 
     [Header("Settings")]
-    public float DaysToSapling = 3f;
-    public float DaysToYoung = 10f;
-    public float DaysToMature = 20f;
-    public float WaterConsumptionPerDay = 5f; // Reduced from 10f to be more forgiving
+    public float DaysToSapling = 1f;
+    public float DaysToYoung = 2f;
+    public float DaysToMature = 3f;
+    public float WaterConsumptionPerDay = 1f; // Reduced from 10f to be more forgiving
 
     [Header("Visuals")]
     public GameObject SeedModel;
