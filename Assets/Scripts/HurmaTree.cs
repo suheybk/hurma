@@ -140,14 +140,16 @@ public class HurmaTree : MonoBehaviour
                 break;
             case GrowthStage.MatureTree:
                 // Check season/moon for flowering
-                if (TimeManager.Instance.CurrentMoonPhase == TimeManager.MoonPhase.NewMoon)
+                // FAST MODE: Bypass Moon Check if DaysToMature is small
+                if (DaysToMature <= 3 || TimeManager.Instance.CurrentMoonPhase == TimeManager.MoonPhase.NewMoon)
                 {
                     AdvanceStage(GrowthStage.Flowering);
                 }
                 break;
             case GrowthStage.Flowering:
                 // Flower until Full Moon (approx 14 days), then bear fruit
-                if (TimeManager.Instance.CurrentMoonPhase == TimeManager.MoonPhase.FullMoon)
+                // FAST MODE: Bypass Moon Check if DaysToMature is small (wait only 1 day)
+                if (DaysToMature <= 3 || TimeManager.Instance.CurrentMoonPhase == TimeManager.MoonPhase.FullMoon)
                 {
                     FruitCount = Random.Range(3, 10); // Rizq is varying
                     AdvanceStage(GrowthStage.Fruiting);
