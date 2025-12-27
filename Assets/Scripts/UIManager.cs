@@ -69,7 +69,10 @@ public class UIManager : MonoBehaviour
              // Fallback: Try finding by tag or just type if unique
              InventoryText = GameFinder.FindComponent<Text>("RizqText");
         }
-    }
+
+        // Logic for Harvest Button
+        if (HarvestButton == null) HarvestButton = GameFinder.FindComponent<Button>("HarvestButton");
+        if (HarvestButton == null) CreateHarvestButton();
 
     private void OnNextDayClicked()
     {
@@ -120,6 +123,59 @@ public class UIManager : MonoBehaviour
         {
              // Temporary: Append to SoilText or use a new logic if finding components
              // Better: Create a new Text variable in UIManager script for "InventoryText"
+        }
+        
+        // Harvest Button Logic
+        if (HarvestButton != null && activeSoil != null && activeSoil.PlantedTree != null)
+        {
+            bool canHarvest = (activeSoil.PlantedTree.CurrentStage == HurmaTree.GrowthStage.Fruiting);
+            HarvestButton.gameObject.SetActive(canHarvest);
+        }
+    }
+    
+    [Header("Interaction")]
+    public Button HarvestButton;
+
+    private void CreateHarvestButton()
+    {
+        Canvas canvas = FindFirstObjectByType<Canvas>();
+        if (canvas == null) return;
+
+        GameObject btnObj = new GameObject("HarvestButton");
+        btnObj.transform.SetParent(canvas.transform, false);
+        
+        Image img = btnObj.AddComponent<Image>();
+        img.color = new Color(0.8f, 0.5f, 0.2f); // Orange-ish
+        
+        HarvestButton = btnObj.AddComponent<Button>();
+        
+        // Text
+        GameObject textObj = new GameObject("Text");
+        textObj.transform.SetParent(btnObj.transform, false);
+        Text txt = textObj.AddComponent<Text>();
+        txt.text = "HASAT ET";
+        txt.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        txt.color = Color.white;
+        txt.alignment = TextAnchor.MiddleCenter;
+        
+        // Position
+        RectTransform rt = btnObj.GetComponent<RectTransform>();
+        rt.anchorMin = new Vector2(0.5f, 0.2f);
+        rt.anchorMax = new Vector2(0.5f, 0.2f);
+        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.sizeDelta = new Vector2(160, 50);
+        rt.anchoredPosition = Vector2.zero;
+        
+        HarvestButton.onClick.AddListener(OnHarvestClicked);
+        btnObj.SetActive(false); // Hidden by default
+    }
+
+    public void OnHarvestClicked()
+    {
+        if (activeSoil != null && activeSoil.PlantedTree != null)
+        {
+            activeSoil.PlantedTree.Harvest();
+            UpdateInventoryDisplay(); // Update immediately
         }
     }
     

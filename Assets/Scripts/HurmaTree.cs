@@ -190,7 +190,21 @@ public class HurmaTree : MonoBehaviour
         GameObject newModel = GetModelForStage(stage);
         GameObject oldModel = GetActiveModel();
 
-        if (newModel == oldModel) yield break;
+        // TINT LOGIC FOR FRUITING
+        if (newModel != null && stage == GrowthStage.Fruiting)
+        {
+             Renderer[] rends = newModel.GetComponentsInChildren<Renderer>();
+             foreach(Renderer r in rends) r.material.color = new Color(0.8f, 0.5f, 0.2f); // Orange tint
+        }
+        else if (newModel != null && stage == GrowthStage.MatureTree)
+        {
+             // Reset tint if handled properly, but usually we just swap models.
+             // If Fruiting uses MatureModel, we must reset it when harvesting.
+             Renderer[] rends = newModel.GetComponentsInChildren<Renderer>();
+             foreach(Renderer r in rends) r.material.color = Color.white; // Reset
+        }
+
+        if (newModel == oldModel && stage != GrowthStage.Fruiting) yield break;
 
         if (instant)
         {
